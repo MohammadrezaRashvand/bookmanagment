@@ -28,6 +28,7 @@ class BookProvider {
   Future getRecords() async {
     List<Map> list = await db.rawQuery('SELECT * FROM Book');
     print('list: $list');
+    return list;
   }
 
   Future updateRecord(int id, String name, String description) async {
@@ -38,7 +39,7 @@ class BookProvider {
   }
 
   Future delete(int id) async {
-    return await db.rawDelete('DELETE FROM Book WHERE id = $id', [id]);
+    return await db.rawDelete('DELETE FROM Book WHERE id = ?', ["$id"]);
   }
 
   Future close() async => db.close();
