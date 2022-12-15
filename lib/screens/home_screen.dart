@@ -1,4 +1,5 @@
 import 'package:app/model/book_model.dart';
+import 'package:app/screens/edit_book_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../config/book_provider.dart';
@@ -100,18 +101,27 @@ class _HomeScreenState extends State<HomeScreen> {
                                         await db.open();
                                         await db.delete(bookList[index]['id']);
                                         // ignore: use_build_context_synchronously
-                                        Navigator.pushAndRemoveUntil(context,
-                                            MaterialPageRoute(builder: (context) => const HomeScreen()), (route) => false);
+                                        Navigator.pushAndRemoveUntil(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    const HomeScreen()),
+                                            (route) => false);
                                       },
                                       child: const Text(
                                         "remove",
                                         style: TextStyle(color: Colors.red),
                                       )),
                                   TextButton(
-                                      onPressed: () async {
-                                        var db = BookProvider();
-                                        await db.open();
-                                        await db.getRecords();
+                                      onPressed: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                EditBookScreen(
+                                                    id: bookList[index]['id']),
+                                          ),
+                                        );
                                       },
                                       child: const Text(
                                         "Edit",
